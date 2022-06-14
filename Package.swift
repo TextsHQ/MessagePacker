@@ -1,10 +1,10 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.6
 import PackageDescription
 
 let package = Package(
     name: "MessagePacker",
     platforms: [
-        .macOS(.v10_10), .iOS(.v8), .tvOS(.v9), .watchOS(.v2)
+        .macOS(.v10_10), .iOS(.v14), .tvOS(.v14), .watchOS(.v8)
     ],
     products: [
         .library(name: "MessagePacker", targets: ["MessagePacker"]),

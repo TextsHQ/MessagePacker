@@ -102,7 +102,7 @@ extension MessagePackType.MapType {
 }
 
 extension MessagePackType.MapType {
-    static func split(for value: Data) throws -> [String : Data] {
+    static func split(for value: Data) throws -> [(key: String, value: Data)] {
         guard let firstByte = value.first else { throw MessagePackError.emptyData }
 
         let type = try MessagePackType.MapType(firstByte)
@@ -110,10 +110,10 @@ extension MessagePackType.MapType {
         let length = try type.length(value)
 
         return try (0..<length)
-            .reduce(into: (dictionary: [String : Data](), index: startIndex)) { args, _ in
+            .reduce(into: (dictionary: [(key: String, value: Data)](), index: startIndex)) { args, _ in
                 let key = try value.subdata(startIndex: args.index).firstMessagePackeValue()
                 let value = try value.subdata(startIndex: args.index + key.count).firstMessagePackeValue()
-                args.dictionary[try String.unpack(for: key)] = value
+                args.dictionary.append((try String.unpack(for: key), value))
                 args.index += (key.count + value.count)
             }
             .dictionary

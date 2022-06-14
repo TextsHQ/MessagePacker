@@ -209,34 +209,3 @@ extension TimestampUnpackedTests {
         ("testTimestamp96", testTimestamp96),
     ]
 }
-
-#if !os(macOS)
-public func __allTests() -> [XCTestCaseEntry] {
-    return [
-        testCase(ArrayPackedTests.__allTests),
-        testCase(ArrayUnpackedTests.__allTests),
-        testCase(BinaryPackedTests.__allTests),
-        testCase(BinaryUnpackedTests.__allTests),
-        testCase(BoolPackedTests.__allTests),
-        testCase(BoolUnpackedTests.__allTests),
-        testCase(CustomPackedTests.__allTests),
-        testCase(CustomUnpackedTests.__allTests),
-        testCase(DoublePackedTests.__allTests),
-        testCase(DoubleUnpackedTests.__allTests),
-        testCase(ExtensionPackedTests.__allTests),
-        testCase(ExtensionUnpackedTests.__allTests),
-        testCase(FloatPackedTests.__allTests),
-        testCase(FloatUnpackedTests.__allTests),
-        testCase(IntegerPackedTests.__allTests),
-        testCase(IntegerUnpackedTests.__allTests),
-        testCase(MapPackedTests.__allTests),
-        testCase(MapUnpackedTests.__allTests),
-        testCase(NilPackedTests.__allTests),
-        testCase(NilUnpackedTests.__allTests),
-        testCase(StringPackedTests.__allTests),
-        testCase(StringUnpackedTests.__allTests),
-        testCase(TimestampPackedTests.__allTests),
-        testCase(TimestampUnpackedTests.__allTests),
-    ]
-}
-#endif
