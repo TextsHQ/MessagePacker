@@ -127,23 +127,21 @@ extension MessagePackDecoder {
         private let decoder: MessagePackDecoder
         private(set) var codingPath: [CodingKey]
         private(set) var allKeys: [Key]
-        private var orderedContainer: [(key: String, value: Data)] = []
-        private var unorderedContainer: [String: Data] = [:]
+        private var container: [String: Data] = [:]
 
         init(referencing decoder: MessagePackDecoder, container: [(key: String, value: Data)]) {
             self.decoder = decoder
             self.codingPath = decoder.codingPath
             self.allKeys = container.lazy.map({ $0.key }).compactMap({ Key(stringValue: $0) })
-            self.orderedContainer = container
-            self.unorderedContainer = Dictionary(container, uniquingKeysWith: { lhs, rhs in lhs })
+            self.container = Dictionary(container, uniquingKeysWith: { lhs, rhs in lhs })
         }
 
         func contains(_ key: Key) -> Bool {
-            return unorderedContainer[key.stringValue] != nil
+            return container[key.stringValue] != nil
         }
 
         func findEntry(by key: CodingKey) throws -> Data {
-            guard let entry = unorderedContainer[key.stringValue] else {
+            guard let entry = container[key.stringValue] else {
                 let context = DecodingError.Context(codingPath: self.decoder.codingPath, debugDescription: "No value associated with key \(key) (\"\(key.stringValue)\").")
                 throw DecodingError.keyNotFound(key, context)
             }
